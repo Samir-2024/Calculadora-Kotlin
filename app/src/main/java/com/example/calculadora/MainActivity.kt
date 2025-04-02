@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
         val calculo = binding.calculo
 
         binding.zero.setOnClickListener {
-            calculo.text = "${calculo.text}9"
+            calculo.text = "${calculo.text}0"
         }
         binding.um.setOnClickListener {
-            calculo.text = "${calculo.text}0"
+            calculo.text = "${calculo.text}1"
         }
         binding.dois.setOnClickListener {
             calculo.text = "${calculo.text}2"

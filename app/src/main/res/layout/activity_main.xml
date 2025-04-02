@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- o LinearLayout estrutura um item(view) em cima do outro -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,12 +9,7 @@
     tools:context=".MainActivity"
     android:orientation="vertical"> <!-- faz com que um novo view fique em baixo do anterior -->
 
-    <!-- o "androidx.constraintlayout.widget.ConstraintLayout" é a tela de calculo -->
-    <!-- o "match parent" pega a largura total -->
-    <!-- o "TextView" é o conteudo que sera mostrado -->
-    <!-- o "wrap contente" faz com que o view utilize somente o espaço da tela de calculo -->
-    <!-- o "tools" mostra somente as coisas no desenvolvimento, não na execução -->
-    <!-- os "app" são as restrições, basicamente eles fazem onde o view vai ficar (pode ser feito por código ou manualmente) -->
+    <!-- tela de calculo -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
@@ -53,9 +47,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- "TableLayout" é o teclado da calculadora -->
-    <!-- o "TableRow" é uma linha da tabela (teclado) -->
-    <!-- o "androidx.appcompat.widget.AppCompatButton" é um botão do teclado -->
+    <!-- teclado da calculadora -->
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -73,7 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-            />
+                />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/paren_1"
                 android:text="("
