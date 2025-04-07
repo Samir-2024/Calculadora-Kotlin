@@ -1,9 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Calculadora" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Base do tema claro -->
+    <style name="Base.Theme.Calculadora" parent="Theme.Material3.Light.NoActionBar" />
+
+    <!-- Tema personalizado claro -->
+    <style name="Theme.MyCalculator.Light" parent="Base.Theme.Calculadora">
+        <item name="colorPrimary">@color/azul</item>
+        <item name="colorPrimaryContainer">@color/azul_escuro</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowBackground">@color/branco</item>
+        <item name="colorSurface">@color/branco</item>
+        <item name="colorOnSurface">@color/black</item> <!-- Corrigido -->
     </style>
 
-    <style name="Theme.Calculadora" parent="Base.Theme.Calculadora" />
+    <!-- Tema principal usado no app -->
+    <style name="Theme.Calculadora" parent="Theme.MyCalculator.Light" />
 </resources>
