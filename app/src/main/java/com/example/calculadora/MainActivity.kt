@@ -2,9 +2,8 @@ package com.example.calculadora
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.calculadora.databinding.ActivityMainBinding
@@ -13,14 +12,13 @@ import org.mariuszgromada.math.mxparser.Expression
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var isDarkTheme = false // Estado do tema
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -29,60 +27,32 @@ class MainActivity : AppCompatActivity() {
 
         val calculo = binding.calculo
 
-        binding.zero.setOnClickListener {
-            calculo.text = "${calculo.text}0"
-        }
-        binding.um.setOnClickListener {
-            calculo.text = "${calculo.text}1"
-        }
-        binding.dois.setOnClickListener {
-            calculo.text = "${calculo.text}2"
-        }
-        binding.tres.setOnClickListener {
-            calculo.text = "${calculo.text}3"
-        }
-        binding.quatro.setOnClickListener {
-            calculo.text = "${calculo.text}4"
-        }
-        binding.cinco.setOnClickListener {
-            calculo.text = "${calculo.text}5"
-        }
-        binding.seis.setOnClickListener {
-            calculo.text = "${calculo.text}6"
-        }
-        binding.sete.setOnClickListener {
-            calculo.text = "${calculo.text}7"
-        }
-        binding.oito.setOnClickListener {
-            calculo.text = "${calculo.text}8"
-        }
-        binding.nove.setOnClickListener {
-            calculo.text = "${calculo.text}9"
+        fun adicionarAoCalculo(texto: String) {
+            calculo.append(texto)
         }
 
+        // Números
+        binding.zero.setOnClickListener { adicionarAoCalculo("0") }
+        binding.um.setOnClickListener { adicionarAoCalculo("1") }
+        binding.dois.setOnClickListener { adicionarAoCalculo("2") }
+        binding.tres.setOnClickListener { adicionarAoCalculo("3") }
+        binding.quatro.setOnClickListener { adicionarAoCalculo("4") }
+        binding.cinco.setOnClickListener { adicionarAoCalculo("5") }
+        binding.seis.setOnClickListener { adicionarAoCalculo("6") }
+        binding.sete.setOnClickListener { adicionarAoCalculo("7") }
+        binding.oito.setOnClickListener { adicionarAoCalculo("8") }
+        binding.nove.setOnClickListener { adicionarAoCalculo("9") }
 
-        binding.paren1.setOnClickListener {
-            calculo.text = "${calculo.text}("
-        }
-        binding.paren2.setOnClickListener {
-            calculo.text = "${calculo.text})"
-        }
-        binding.divisao.setOnClickListener {
-            calculo.text = "${calculo.text}/"
-        }
-        binding.vezes.setOnClickListener {
-            calculo.text = "${calculo.text}*"
-        }
-        binding.menos.setOnClickListener {
-            calculo.text = "${calculo.text}-"
-        }
-        binding.mais.setOnClickListener {
-            calculo.text = "${calculo.text}+"
-        }
-        binding.ponto.setOnClickListener {
-            calculo.text = "${calculo.text}."
-        }
+        // Operadores
+        binding.paren1.setOnClickListener { adicionarAoCalculo("(") }
+        binding.paren2.setOnClickListener { adicionarAoCalculo(")") }
+        binding.divisao.setOnClickListener { adicionarAoCalculo("/") }
+        binding.vezes.setOnClickListener { adicionarAoCalculo("*") }
+        binding.menos.setOnClickListener { adicionarAoCalculo("-") }
+        binding.mais.setOnClickListener { adicionarAoCalculo("+") }
+        binding.ponto.setOnClickListener { adicionarAoCalculo(".") }
 
+        // Apagar e Limpar
         binding.apagar.setOnClickListener {
             calculo.text = calculo.text.dropLast(1)
         }
@@ -90,15 +60,29 @@ class MainActivity : AppCompatActivity() {
             calculo.text = ""
             binding.resultado.text = ""
         }
-        binding.igual.setOnClickListener {
-            val resulCalculado = Expression(calculo.text.toString()).calculate()
 
-            if (resulCalculado.isNaN()){
-                binding.resultado.text = "Expressão Invalida"
-            }else{
-                binding.resultado.text = resulCalculado.toString()
+        // Calcular
+        binding.igual.setOnClickListener {
+            try {
+                val resultadoCalculado = Expression(calculo.text.toString()).calculate()
+                if (resultadoCalculado.isNaN()) {
+                    binding.resultado.text = "Expressão inválida"
+                } else {
+                    binding.resultado.text = resultadoCalculado.toString()
+                }
+            } catch (e: Exception) {
+                binding.resultado.text = "Erro no cálculo"
             }
         }
 
+        // Alternar tema claro/escuro
+        binding.btnToggleTheme.setOnClickListener {
+            isDarkTheme = !isDarkTheme
+            if (isDarkTheme) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 }

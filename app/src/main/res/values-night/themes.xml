@@ -1,8 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base do tema escuro -->
     <style name="Base.Theme.Calculadora" parent="Theme.Material3.Dark.NoActionBar" />
 
-    <!-- Tema personalizado escuro -->
     <style name="Theme.MyCalculator.Dark" parent="Base.Theme.Calculadora">
         <item name="colorPrimary">@color/azul</item>
         <item name="colorPrimaryContainer">@color/azul_escuro</item>
@@ -12,7 +10,5 @@
         <item name="colorOnSurface">@color/white</item>
     </style>
 
-    <!-- Tema principal usado no app -->
     <style name="Theme.Calculadora" parent="Theme.MyCalculator.Dark" />
 </resources>
-
