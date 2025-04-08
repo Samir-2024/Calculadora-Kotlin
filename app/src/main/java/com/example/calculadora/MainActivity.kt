@@ -2,6 +2,9 @@ package com.example.calculadora
 
 import android.os.Bundle
 import android.widget.Button
+import android.app.AlertDialog
+import android.content.Context
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
@@ -29,6 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         fun adicionarAoCalculo(texto: String) {
             calculo.append(texto)
+        }
+
+        // ⬇️ Chamada do botão de abrir modal
+        val botaoAbrirModal = findViewById<Button>(R.id.abrirModal)
+        botaoAbrirModal.setOnClickListener {
+            mostrarModalCustom(this)
         }
 
         // Números
@@ -84,5 +93,21 @@ class MainActivity : AppCompatActivity() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+    }
+
+    // ⬇️ Função da Modal Customizada
+    private fun mostrarModalCustom(context: Context) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.modal_custom, null)
+        val builder = AlertDialog.Builder(context)
+            .setView(dialogView)
+
+        val alertDialog = builder.create()
+
+        val fecharButton = dialogView.findViewById<Button>(R.id.modalButton)
+        fecharButton.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
     }
 }

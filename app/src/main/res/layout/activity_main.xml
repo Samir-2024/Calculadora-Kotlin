@@ -24,11 +24,20 @@
     -->
 
     <Button
+        android:id="@+id/abrirModal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_list"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp" />
+
+
+    <Button
         android:id="@+id/btnToggleTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
         android:text="Tema"
         app:layout_constraintEnd_toStartOf="@+id/btnHistorico"
         app:layout_constraintTop_toTopOf="parent" />
