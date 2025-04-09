@@ -1,5 +1,9 @@
 package com.example.calculadora
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import android.os.Bundle
 import android.widget.Button
 import android.app.AlertDialog
@@ -94,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     // ⬇️ Função da Modal Customizada
     private fun mostrarModalCustom(context: Context) {
