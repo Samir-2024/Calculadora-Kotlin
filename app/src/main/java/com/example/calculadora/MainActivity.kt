@@ -1,9 +1,5 @@
 package com.example.calculadora
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.json.JSONObject
+
 import android.os.Bundle
 import android.widget.Button
 import android.app.AlertDialog
@@ -38,12 +34,6 @@ class MainActivity : AppCompatActivity() {
             calculo.append(texto)
         }
 
-        // ⬇️ Chamada do botão de abrir modal
-        val botaoAbrirModal = findViewById<Button>(R.id.abrirModal)
-        botaoAbrirModal.setOnClickListener {
-            mostrarModalCustom(this)
-        }
-
         // Números
         binding.zero.setOnClickListener { adicionarAoCalculo("0") }
         binding.um.setOnClickListener { adicionarAoCalculo("1") }
@@ -69,9 +59,15 @@ class MainActivity : AppCompatActivity() {
         binding.apagar.setOnClickListener {
             calculo.text = calculo.text.dropLast(1)
         }
+
         binding.ce.setOnClickListener {
             calculo.text = ""
             binding.resultado.text = ""
+        }
+
+        // ABRIR MODAL DE CONFIGURAÇÃO
+        binding.btnConfig.setOnClickListener {
+            mostrarModalCustom(this)
         }
 
         // Calcular
@@ -87,20 +83,8 @@ class MainActivity : AppCompatActivity() {
                 binding.resultado.text = "Erro no cálculo"
             }
         }
-
-        // Alternar tema claro/escuro
-        binding.btnToggleTheme.setOnClickListener {
-            isDarkTheme = !isDarkTheme
-            if (isDarkTheme) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
     }
 
-
-    // ⬇️ Função da Modal Customizada
     private fun mostrarModalCustom(context: Context) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.modal_custom, null)
         val builder = AlertDialog.Builder(context)
@@ -111,6 +95,16 @@ class MainActivity : AppCompatActivity() {
         val fecharButton = dialogView.findViewById<Button>(R.id.modalButton)
         fecharButton.setOnClickListener {
             alertDialog.dismiss()
+        }
+
+        val toggleThemeButton = dialogView.findViewById<Button>(R.id.btnToggleTheme)
+        toggleThemeButton.setOnClickListener {
+            isDarkTheme = !isDarkTheme
+            if (isDarkTheme) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
 
         alertDialog.show()

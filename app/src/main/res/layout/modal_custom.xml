@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- modal_custom.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -13,8 +14,30 @@
         android:text="Modal personalizada!" />
 
     <Button
+        android:id="@+id/converterMoeda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Conversão Monetária" />
+
+    <Button
+        android:id="@+id/btnHistorico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Histórico" />
+
+    <Button
+        android:id="@+id/btnToggleTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Tema" />
+
+    <Button
         android:id="@+id/modalButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="Fechar" />
 </LinearLayout>
