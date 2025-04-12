@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -41,13 +40,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Converter"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="24dp"
+        />
 
     <TextView
         android:id="@+id/tvResultado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resultado aparecerá aqui"
+        android:text="Resultado "
         android:textSize="16sp"
         android:paddingTop="16dp"
         android:gravity="center_horizontal" />

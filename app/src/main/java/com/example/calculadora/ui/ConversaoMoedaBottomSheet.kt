@@ -13,8 +13,8 @@ class ConversaoMoedaBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.convesor_custom, container, false)
+    ): View? {
+        return inflater.inflate(R.layout.conversor_custom, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class ConversaoMoedaBottomSheet : BottomSheetDialogFragment() {
         btnConverter.setOnClickListener {
             val valor = etValor.text.toString().toDoubleOrNull()
             if (valor != null) {
-                val resultado = valor * 5.0 // valor fictício para teste
+                val resultado = valor * 5.0 // Valor fictício de conversão (substitua por uma lógica real)
                 tvResultado.text = "Resultado: $resultado"
             } else {
                 tvResultado.text = "Digite um valor válido"
