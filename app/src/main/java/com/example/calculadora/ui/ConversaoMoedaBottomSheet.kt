@@ -32,12 +32,51 @@ class ConversaoMoedaBottomSheet : BottomSheetDialogFragment() {
 
         btnConverter.setOnClickListener {
             val valor = etValor.text.toString().toDoubleOrNull()
-            if (valor != null) {
-                val resultado = valor * 5.0 // Valor fictício de conversão (substitua por uma lógica real)
-                tvResultado.text = "Resultado: $resultado"
+            if (valor != null && valor > 0) {
+                // Pegando as moedas selecionadas nos Spinners
+                val moedaOrigem = spinnerOrigem.selectedItem.toString()
+                val moedaDestino = spinnerDestino.selectedItem.toString()
+
+                // Lógica fictícia de conversão: você pode substituir por uma API real.
+                val taxaConversao = obterTaxaDeConversao(moedaOrigem, moedaDestino)
+                val resultado = valor * taxaConversao
+
+                tvResultado.text = "Resultado: $resultado $moedaDestino"
             } else {
-                tvResultado.text = "Digite um valor válido"
+                tvResultado.text = "Digite um valor válido maior que zero"
             }
+        }
+    }
+
+    // Função fictícia para obter a taxa de conversão entre as moedas
+    private fun obterTaxaDeConversao(moedaOrigem: String, moedaDestino: String): Double {
+        // Exemplo de lógica fictícia, substitua por uma API real
+        return when (moedaOrigem) {
+            "BRL" -> when (moedaDestino) {
+                "USD" -> 0.19 // Exemplo de taxa fictícia
+                "EUR" -> 0.18
+                "JPY" -> 25.0
+                else -> 1.0
+            }
+            "USD" -> when (moedaDestino) {
+                "BRL" -> 5.0
+                "EUR" -> 0.85
+                "JPY" -> 130.0
+                else -> 1.0
+            }
+            "EUR" -> when (moedaDestino) {
+                "BRL" -> 5.5
+                "USD" -> 1.18
+                "JPY" -> 150.0
+                else -> 1.0
+            }
+            "JPY" -> when (moedaDestino) {
+                "BRL" -> 0.04
+                "USD" -> 0.007
+                "EUR" -> 0.0067
+                else -> 1.0
+            }
+            else -> 1.0
         }
     }
 }

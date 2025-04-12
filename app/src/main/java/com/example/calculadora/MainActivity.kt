@@ -10,12 +10,16 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.calculadora.databinding.ActivityMainBinding
+import com.example.calculadora.ui.ConversaoMoedaBottomSheet
+import com.example.calculadora.ui.HistoricoBottomSheet
 import org.mariuszgromada.math.mxparser.Expression
 
-class tivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var isDarkTheme = false // Estado do tema
+    private var alertDialog: AlertDialog? = null // Variável para controlar o AlertDialog
+    private val historico = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,11 +77,14 @@ class tivity : AppCompatActivity() {
         // Calcular
         binding.igual.setOnClickListener {
             try {
-                val resultadoCalculado = Expression(calculo.text.toString()).calculate()
+                val expressao = calculo.text.toString()
+                val resultadoCalculado = Expression(expressao).calculate()
                 if (resultadoCalculado.isNaN()) {
                     binding.resultado.text = "Expressão inválida"
                 } else {
-                    binding.resultado.text = resultadoCalculado.toString()
+                    val resultadoTexto = resultadoCalculado.toString()
+                    binding.resultado.text = resultadoTexto
+                    historico.add("$expressao = $resultadoTexto")
                 }
             } catch (e: Exception) {
                 binding.resultado.text = "Erro no cálculo"
@@ -85,16 +92,22 @@ class tivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        // Fecha o alertDialog se ele estiver aberto ao pausar a Activity
+        alertDialog?.dismiss()
+    }
+
     private fun mostrarModalCustom(context: Context) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.modal_custom, null)
         val builder = AlertDialog.Builder(context)
             .setView(dialogView)
 
-        val alertDialog = builder.create()
+        alertDialog = builder.create()
 
         val fecharButton = dialogView.findViewById<Button>(R.id.modalButton)
         fecharButton.setOnClickListener {
-            alertDialog.dismiss()
+            alertDialog?.dismiss()
         }
 
         val toggleThemeButton = dialogView.findViewById<Button>(R.id.btnToggleTheme)
@@ -107,6 +120,31 @@ class tivity : AppCompatActivity() {
             }
         }
 
-        alertDialog.show()
+        val openHistory = dialogView.findViewById<Button>(R.id.btnHistorico)
+        openHistory.setOnClickListener {
+            alertDialog?.dismiss() // Fecha o modal de config
+
+            // Agora, criamos e mostramos o BottomSheet de histórico
+            val bottomSheet = HistoricoBottomSheet(historico) { itemSelecionado ->
+                val expressao = itemSelecionado.substringBefore("=")
+                binding.calculo.setText(expressao.trim())  // Preenche a expressão no cálculo
+            }
+            bottomSheet.show(supportFragmentManager, "HistoricoBottomSheet") // Exibe o BottomSheet
+
+
+        }
+
+        val openConversor = dialogView.findViewById<Button>(R.id.converterMoeda)
+        openConversor.setOnClickListener {
+            alertDialog?.dismiss() // Fecha o modal antes de abrir o bottom sheet
+
+            // Abre o BottomSheet de conversão de moeda
+            val bottomSheet = ConversaoMoedaBottomSheet()
+            bottomSheet.show(supportFragmentManager, null) // Exibe o BottomSheet de conversão de moeda
+        }
+
+        if (!isFinishing && !isDestroyed) {
+            alertDialog?.show()
+        }
     }
 }
