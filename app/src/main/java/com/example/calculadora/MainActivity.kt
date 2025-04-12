@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.calculadora.databinding.ActivityMainBinding
 import org.mariuszgromada.math.mxparser.Expression
 
-class MainActivity : AppCompatActivity() {
+class tivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var isDarkTheme = false // Estado do tema
