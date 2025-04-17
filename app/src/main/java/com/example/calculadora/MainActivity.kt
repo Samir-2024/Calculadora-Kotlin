@@ -124,14 +124,8 @@ class MainActivity : AppCompatActivity() {
         openHistory.setOnClickListener {
             alertDialog?.dismiss() // Fecha o modal de config
 
-            // Agora, criamos e mostramos o BottomSheet de histórico
-            val bottomSheet = HistoricoBottomSheet(historico) { itemSelecionado ->
-                val expressao = itemSelecionado.substringBefore("=")
-                binding.calculo.setText(expressao.trim())  // Preenche a expressão no cálculo
-            }
-            bottomSheet.show(supportFragmentManager, "HistoricoBottomSheet") // Exibe o BottomSheet
-
-
+            val bottomSheet = HistoricoBottomSheet.newInstance(historico)
+            bottomSheet.show(supportFragmentManager, "HistoricoBottomSheet")
         }
 
         val openConversor = dialogView.findViewById<Button>(R.id.converterMoeda)
@@ -140,7 +134,7 @@ class MainActivity : AppCompatActivity() {
 
             // Abre o BottomSheet de conversão de moeda
             val bottomSheet = ConversaoMoedaBottomSheet()
-            bottomSheet.show(supportFragmentManager, null) // Exibe o BottomSheet de conversão de moeda
+            bottomSheet.show(supportFragmentManager, null)
         }
 
         if (!isFinishing && !isDestroyed) {
