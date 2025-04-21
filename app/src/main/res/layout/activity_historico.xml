@@ -1,11 +1,33 @@
-<!-- res/layout/activity_historico.xml -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="16dp"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Título do Histórico -->
     <TextView
-        android:id="@+id/tvHistorico"
-        android:textSize="16sp"
+        android:id="@+id/tituloHistorico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Histórico de Cálculos"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="8dp"/>
+
+    <!-- ScrollView contendo a lista do histórico -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</ScrollView>
+        android:layout_height="300dp">
+        <!-- TextView para exibir o histórico de cálculos -->
+        <TextView
+            android:id="@+id/listaHistorico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text=""
+            android:scrollbars="vertical"/>
+    </ScrollView>
+
+</LinearLayout>

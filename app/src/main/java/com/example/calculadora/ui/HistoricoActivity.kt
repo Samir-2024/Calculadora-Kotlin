@@ -1,4 +1,3 @@
-// HistoricoActivity.kt
 package com.example.calculadora
 
 import android.os.Bundle
@@ -14,7 +13,10 @@ class HistoricoActivity : AppCompatActivity() {
         binding = ActivityHistoricoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val historico = intent.getStringArrayListExtra("HISTORICO") ?: arrayListOf()
-        binding.tvHistorico.text = historico.joinToString("\n")
+        // Recupera o histórico enviado para a Activity sem argumentos de tipo genérico
+        val historico = intent.getStringArrayListExtra("HISTORICO") ?: ArrayList()
+
+        // Exibe o histórico na TextView dentro do ScrollView
+        binding.listaHistorico.text = historico.joinToString("\n")
     }
 }
