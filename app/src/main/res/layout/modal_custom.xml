@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- modal_custom.xml -->
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:padding="24dp">
 
-    <TextView
-        android:id="@+id/modalText"
+    <LinearLayout
+        android:id="@+id/modalLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modal personalizada!" />
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
 
-    <Button
-        android:id="@+id/converterMoeda"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Conversão Monetária" />
+        <TextView
+            android:id="@+id/modalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Opções!" />
 
-    <Button
-        android:id="@+id/btnHistorico"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Histórico" />
+        <Button
+            android:id="@+id/converterMoeda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Conversão Monetária" />
 
-    <Button
-        android:id="@+id/btnToggleTheme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Tema" />
+        <Button
+            android:id="@+id/btnHistorico"
+            android:layout_width="343dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Histórico" />
 
-    <Button
-        android:id="@+id/modalButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Fechar" />
-</LinearLayout>
+        <Button
+            android:id="@+id/btnToggleTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Tema" />
+
+        <Button
+            android:id="@+id/modalButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Fechar" />
+    </LinearLayout>
+
+</RelativeLayout>

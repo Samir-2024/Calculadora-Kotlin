@@ -21,6 +21,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ConversorActivity" />
+
+        <activity android:name=".ConfigActivity" />
+
+        <activity android:name=".HistoricoActivity" />
+
     </application>
 
 </manifest>

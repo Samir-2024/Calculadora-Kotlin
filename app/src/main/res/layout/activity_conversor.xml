@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Campo para inserir o valor -->
+    <EditText
+        android:id="@+id/edtValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o valor"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Spinner para selecionar a moeda de origem -->
+    <Spinner
+        android:id="@+id/spinnerOrigem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/array_moedas"
+        android:layout_marginTop="8dp" />
+
+    <!-- Spinner para selecionar a moeda de destino -->
+    <Spinner
+        android:id="@+id/spinnerDestino"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/array_moedas"
+        android:layout_marginTop="8dp" />
+
+    <!-- Botão para realizar a conversão -->
+    <Button
+        android:id="@+id/btnConverter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Converter"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+    <!-- TextView para exibir o resultado da conversão -->
+    <TextView
+        android:id="@+id/resultadoConversao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resultado da conversão"
+        android:textSize="18sp"
+        android:padding="16dp"
+        android:gravity="center"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

@@ -1,18 +1,14 @@
 package com.example.calculadora
 
 import android.os.Bundle
-import android.widget.Button
 import android.app.AlertDialog
-import android.content.Context
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.calculadora.databinding.ActivityMainBinding
-import com.example.calculadora.ui.ConversaoMoedaBottomSheet
-import com.example.calculadora.ui.HistoricoBottomSheet
 import org.mariuszgromada.math.mxparser.Expression
+import android.content.Intent
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -69,12 +65,12 @@ class MainActivity : AppCompatActivity() {
             binding.resultado.text = ""
         }
 
-        // ABRIR MODAL DE CONFIGURAÇÃO
         binding.btnConfig.setOnClickListener {
-            mostrarModalCustom(this)
+            val intent = Intent(this, ConfigActivity::class.java)
+            intent.putStringArrayListExtra("HISTORICO", ArrayList(historico))
+            startActivity(intent)
         }
 
-        // Calcular
         binding.igual.setOnClickListener {
             try {
                 val expressao = calculo.text.toString()
@@ -96,49 +92,5 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         // Fecha o alertDialog se ele estiver aberto ao pausar a Activity
         alertDialog?.dismiss()
-    }
-
-    private fun mostrarModalCustom(context: Context) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.modal_custom, null)
-        val builder = AlertDialog.Builder(context)
-            .setView(dialogView)
-
-        alertDialog = builder.create()
-
-        val fecharButton = dialogView.findViewById<Button>(R.id.modalButton)
-        fecharButton.setOnClickListener {
-            alertDialog?.dismiss()
-        }
-
-        val toggleThemeButton = dialogView.findViewById<Button>(R.id.btnToggleTheme)
-        toggleThemeButton.setOnClickListener {
-            isDarkTheme = !isDarkTheme
-            if (isDarkTheme) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
-
-        val openHistory = dialogView.findViewById<Button>(R.id.btnHistorico)
-        openHistory.setOnClickListener {
-            alertDialog?.dismiss() // Fecha o modal de config
-
-            val bottomSheet = HistoricoBottomSheet.newInstance(historico)
-            bottomSheet.show(supportFragmentManager, "HistoricoBottomSheet")
-        }
-
-        val openConversor = dialogView.findViewById<Button>(R.id.converterMoeda)
-        openConversor.setOnClickListener {
-            alertDialog?.dismiss() // Fecha o modal antes de abrir o bottom sheet
-
-            // Abre o BottomSheet de conversão de moeda
-            val bottomSheet = ConversaoMoedaBottomSheet()
-            bottomSheet.show(supportFragmentManager, null)
-        }
-
-        if (!isFinishing && !isDestroyed) {
-            alertDialog?.show()
-        }
     }
 }
