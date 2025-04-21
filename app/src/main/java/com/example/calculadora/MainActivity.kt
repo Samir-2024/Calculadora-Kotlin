@@ -2,19 +2,22 @@ package com.example.calculadora
 
 import android.os.Bundle
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.calculadora.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 import org.mariuszgromada.math.mxparser.Expression
-import android.content.Intent
-
+import com.example.calculadora.model.AppDatabase
+import com.example.calculadora.model.Historico
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var isDarkTheme = false // Estado do tema
-    private var alertDialog: AlertDialog? = null // Variável para controlar o AlertDialog
+    private var isDarkTheme = false
+    private var alertDialog: AlertDialog? = null
     private val historico = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Compatibilidade de layout com barras do sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -32,6 +36,15 @@ class MainActivity : AppCompatActivity() {
 
         fun adicionarAoCalculo(texto: String) {
             calculo.append(texto)
+        }
+
+        fun salvarHistorico(expressao: String, resultado: String) {
+            val db = AppDatabase.getDatabase(this)
+            val dao = db.historicoDao()
+
+            lifecycleScope.launch {
+                dao.inserir(Historico(expressao = expressao, resultado = resultado))
+            }
         }
 
         // Números
@@ -65,12 +78,14 @@ class MainActivity : AppCompatActivity() {
             binding.resultado.text = ""
         }
 
+        // Acessar Configurações
         binding.btnConfig.setOnClickListener {
             val intent = Intent(this, ConfigActivity::class.java)
             intent.putStringArrayListExtra("HISTORICO", ArrayList(historico))
             startActivity(intent)
         }
 
+        // Botão de igual (cálculo e salvar no Room)
         binding.igual.setOnClickListener {
             try {
                 val expressao = calculo.text.toString()
@@ -80,7 +95,9 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     val resultadoTexto = resultadoCalculado.toString()
                     binding.resultado.text = resultadoTexto
+
                     historico.add("$expressao = $resultadoTexto")
+                    salvarHistorico(expressao, resultadoTexto)
                 }
             } catch (e: Exception) {
                 binding.resultado.text = "Erro no cálculo"
@@ -90,7 +107,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        // Fecha o alertDialog se ele estiver aberto ao pausar a Activity
         alertDialog?.dismiss()
     }
 }
