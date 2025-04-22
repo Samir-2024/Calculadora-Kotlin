@@ -1,7 +1,6 @@
 package com.example.calculadora
 
 import android.os.Bundle
-import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var isDarkTheme = false
-    private var alertDialog: AlertDialog? = null
     private val historico = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,10 +101,5 @@ class MainActivity : AppCompatActivity() {
                 binding.resultado.text = "Erro no cálculo"
             }
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        alertDialog?.dismiss()
     }
 }
