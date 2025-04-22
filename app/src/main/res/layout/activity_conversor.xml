@@ -10,6 +10,7 @@
         android:id="@+id/edtValor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:hint="Digite o valor"
         android:inputType="numberDecimal"
         android:layout_marginBottom="16dp" />
@@ -19,6 +20,7 @@
         android:id="@+id/spinnerOrigem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:entries="@array/array_moedas"
         android:layout_marginTop="8dp" />
 
@@ -27,8 +29,10 @@
         android:id="@+id/spinnerDestino"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:entries="@array/array_moedas"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        />
 
     <!-- Botão para realizar a conversão -->
     <Button
